@@ -32,7 +32,8 @@ public class FoodDemo {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    dir.getParent();
+                     Path parent = dir.getParent();
+
 
                     System.out.println(dir.getFileName() + " " + "depth: " + depth++ + ", id: " + id++);
 
