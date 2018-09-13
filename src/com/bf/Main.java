@@ -35,8 +35,8 @@ public class Main {
      */
     public static void createNewTable(int i) {
         // SQLite connection string
-        String url = "jdbc:sqlite:C://sqlite/db/file" + i +".db";
-
+//        String url = "jdbc:sqlite:C://sqlite/db/file" + i +".db";
+        String url = "jdbc:sqlite:F:\\splitespace\\fileinfo" + i + ".db";
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS FileInfo (\n"
                 + "	id integer PRIMARY KEY,\n"
@@ -44,10 +44,17 @@ public class Main {
                 + "	scantime BIGINT\n"
                 + ");";
 
+        String sql2 = "CREATE TABLE IF NOT EXISTS FileInfo (\n"
+                + "	id integer PRIMARY KEY,\n"
+                + "	pid integer,\n"
+                + "	path VARCHAR(255) NOT NULL,\n"
+                + "	type integer\n"
+                + ");";
+
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create a new table
-            stmt.execute(sql);
+            stmt.execute(sql2);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -58,7 +65,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //        createNewDatabase("test2.db");
-        for (int i = 2; i < 31; i++) {
+        for (int i = 1; i < 31; i++) {
             createNewTable(i);
 
         }

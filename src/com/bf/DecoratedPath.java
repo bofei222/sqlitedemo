@@ -154,6 +154,11 @@ public class DecoratedPath implements Path{
         this.path = path;
     }
 
+
+    public DecoratedPath(String stringPath) {
+        this(Paths.get(stringPath));
+    }
+
     public DecoratedPath(Path path) {
         this.path = path;
     }

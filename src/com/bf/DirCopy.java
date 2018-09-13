@@ -89,7 +89,7 @@ class CopyTree implements FileVisitor {
 
 public class DirCopy {
 
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main2(String[] args) throws IOException, SQLException {
         int j = 2;
         for (int i = 100; i < 129; i++) {
             System.out.println("正在复制目录: " + i + "  要写入的数据库是: " + j + "数据量是100w" + (j-1) +"00");
@@ -98,6 +98,18 @@ public class DirCopy {
             Traver.scanAndwrite(j++);
         }
 
+    }
+
+    public static void main(String[] args) throws SQLException, IOException {
+
+        for (int i = 100, j = 1; i < 129; i++) {
+            Long l = System.currentTimeMillis();
+//            Traver traver = new Traver();
+//            traver.scanAndwrite2(j++);
+            Traver.scanAndwrite2(j++);
+            System.out.println(System.currentTimeMillis() - l);
+            copy("F:\\path0\\path0_1\\path99_2", "F:\\path0\\path0_1\\path" + i + "_2");
+        }
     }
 
     public static void copy(String olddir, String newdir) throws IOException {
