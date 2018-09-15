@@ -7,7 +7,11 @@ import java.io.File;
  * @date 2018/9/10 16:52
  */
 public class MyFile extends File {
+    public static void main(String[] args) {
+        MyFile myFile = new MyFile("F:\\splitespace\\fileinfo1.db");
+        System.out.println(myFile.getAbsolutePath());
 
+    }
     private Integer id;
 
     public MyFile(String pathname) {

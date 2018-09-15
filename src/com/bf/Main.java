@@ -48,7 +48,9 @@ public class Main {
                 + "	id integer PRIMARY KEY,\n"
                 + "	pid integer,\n"
                 + "	path VARCHAR(255) NOT NULL,\n"
-                + "	type integer\n"
+                + " isParent VARCHAR(11),\n"
+                + " abpath VARCHAR(255),\n"
+                + " abppath VARCHAR(255)\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);

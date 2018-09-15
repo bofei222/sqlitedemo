@@ -20,7 +20,7 @@ public class Traver {
     static PreparedStatement ps = null;
     static ResultSet rs = null;
     public static void main(String[] args) throws SQLException, IOException {
-//        scanAndwrite2();
+
     }
 
     public static void scanAndwrite(int i) throws IOException, SQLException {
@@ -58,13 +58,13 @@ public class Traver {
             System.out.println("写入file" + i + "用时: " + (System.currentTimeMillis() - l));
         }
     }
-    static int id = 1;
-    public static void scanAndwrite2(int i) throws SQLException {
+    int id = 1;
+    public  void scanAndwrite2(int j) throws SQLException {
         try {
-            String url = "jdbc:sqlite:F:\\splitespace\\fileinfo" + i + ".db";
+            String url = "jdbc:sqlite:F:\\splitespace\\fileinfo" + j + ".db";
             conn = DriverManager.getConnection(url);
             conn.setAutoCommit(false);
-            String sql = "insert into FileInfo(id, pid, path, type) values(?, ?, ?, ?)";
+            String sql = "insert into FileInfo(id, pid, path, isParent, abpath, abppath) values(?, ?, ?, ?, ?, ?)";
 //            String sql = "insert into Food(id, pid, path, type) values(?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);
             MyFile myFile = new MyFile("F:/path0");
@@ -72,7 +72,9 @@ public class Traver {
             ps.setInt(1, myFile.getId());
             ps.setInt(2, 0);
             ps.setString(3, myFile.getName());
-            ps.setInt(4, 0);
+            ps.setString(4, "true");
+            ps.setString(5, myFile.getAbsolutePath());
+            ps.setString(6, myFile.getParentFile().getAbsolutePath());
             ps.addBatch();
             ps = traverseFolder2(myFile, ps);
             int[] ints = ps.executeBatch();
@@ -83,7 +85,7 @@ public class Traver {
         }
     }
 
-    public static PreparedStatement traverseFolder2(MyFile myFile, PreparedStatement ps) throws SQLException {
+    public  PreparedStatement traverseFolder2(MyFile myFile, PreparedStatement ps) throws SQLException {
         MyFile[] myFiles = myFile.listFiles();
 
         for (MyFile myFile2 : myFiles) {
@@ -91,7 +93,9 @@ public class Traver {
             ps.setInt(1, myFile2.getId());
             ps.setInt(2, myFile.getId());
             ps.setString(3, myFile2.getName());
-            ps.setInt(4, myFile2.isDirectory() ? 0 : 1);
+            ps.setString(4, myFile2.isDirectory() ? "true" : "false");
+            ps.setString(5, myFile2.getAbsolutePath());
+            ps.setString(6, myFile2.getParentFile().getAbsolutePath());
             ps.addBatch();
 
 //            System.out.println(myFile2.getId() + " " + myFile2.getName() + " " + myFile.getId());
